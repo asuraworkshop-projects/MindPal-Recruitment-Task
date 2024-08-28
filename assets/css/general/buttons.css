@@ -1,0 +1,66 @@
+.btn, .btn:link, .btn:visited {
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--fontPrimary);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  transition-property: background-color, border;
+  transition:  var(--transition);
+  padding: 8px 16px 8px 16px;
+  border-radius: 12px;
+}
+
+.btn > svg {
+  display: block;
+  width: 24px;
+}
+
+.btn[data-width*='full'] {
+  width: 100%;
+}
+
+.btn[data-btn*='primary'] {
+  background-color: var(--cPrimary);
+  color: var(--cWhite);
+}
+
+.btn[data-btn*='primary']:hover {
+  background-color: var(--cPrimaryHover);
+}
+
+.btn[data-btn*='primary']:active, .btn[data-btn*='primary']:focus {
+  background-color: var(--cPrimaryActive);
+}
+
+.btn[data-btn*='secondary'] {
+  color: var(--cDark);
+  background-color: var(--cWhite);
+  border: 1px solid #BCBCBD;
+}
+
+.btn[data-btn*='secondary']:hover {
+  background-color: #E7E7E7;
+}
+
+.btn[data-btn*='secondary']:active, .btn[data-btn*='secondary']:focus {
+  background-color: #BDBDBD;
+  border: 1px solid #BDBDBD;
+}
+
+.btn[data-btn*='blank'] {
+  padding: 0;
+  font-size: 14px;
+  font-weight: 400px;
+  line-height: 24px;
+  color: var(--cSecondary);
+}
+
+.btn[data-btn*='blank']:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,39 @@
+.inp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: var(--fontPrimary);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: left;
+  color: var(--cGhost);
+  background-color: #EEEFF0;
+  transition-property: background-color, border;
+  transition:  var(--transition);
+  padding: 8px 12px 8px 12px;
+  border-radius: 12px;
+  border: 1px solid #EEEFF0;
+}
+
+.inp[data-width*='full'] {
+  width: 100%;
+}
+
+.inp:hover {
+  background-color: #EEEFF0;
+  border: 1px solid #EEEFF0;
+}
+
+.inp:active, .inp:focus {
+  background-color: var(--cWhite);
+  color: var(--cDark);
+  border: 1px solid var(--cDark);
+}
+
+textarea[class="inp"] {
+  resize: vertical;
+  min-height: 210px;
+  max-height: 400px;
+}

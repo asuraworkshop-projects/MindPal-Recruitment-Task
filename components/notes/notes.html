@@ -1,3 +1,166 @@
 <template id="template-notes">
-  <h1>Notes</h1>
+  <style>
+    .notes-title {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: calc(var(--gap) * 2);
+    }
+    .notes-title > svg {
+      width: 22px;
+      height: 22px;
+    }
+    .notes-title > span {
+      color: var(--cDark);
+      font-size: 20px;
+      line-height: 30px;
+      font-weight: 500;
+    }
+    .notes-search > svg {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translate(0, -50%);
+    }
+    .notes-search > .inp {
+      padding-left: 48px;
+    }
+    .notes-empty {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin: 60px auto 0 auto;
+      width: 300px;
+    }
+    .notes-empty_icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 60px;
+      background-color: var(--cDark);
+      border: 4px solid #EEEFF0;
+      border-radius: 50%;
+    }
+    .notes-empty_icon > svg {
+      width: 24px;
+      height: 24px;
+    }
+    .notes-empty_title {
+      margin-top: 16px;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 30px;
+      color: var(--cDark);
+    }
+    .notes-empty_info {
+      margin-top: 12px;
+      margin-bottom: 24px;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 25.6px;
+      color: var(--cDarkSecondary);
+    }
+
+    .notes-add {
+      margin: 24px auto;
+    }
+
+    .notes-form {
+      position: relative;
+      margin: 44px auto 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap);
+      border: 1px solid #EEEFF0;
+      box-shadow: 0 0 16px #00000008;
+      padding: var(--gap);
+      max-width: calc(var(--maxWidth) - (var(--gap) * 2));
+    }
+
+    @media (min-width: 1400px) {
+      .notes-form {
+        border-radius: 12px;
+      }
+    }
+
+    .notes-form_top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .notes-form_top-title {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 26px;
+      color: var(--cDark);
+    }
+    .notes-form_top-cancel {
+      font-size: 14px;
+      font-weight: 400px;
+      line-height: 24px;
+      color: var(--cSecondary);
+    }
+    .notes-form > .btn {
+      position: absolute;
+      bottom: 32px;
+      right: 32px;
+    }
+  </style>
+
+<div class="container-side">
+  <div class="notes-title">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4.40636 18.677V19.41C4.18802 19.1882 4.09595 18.955 4.09595 18.677V3.32284C4.09595 3.01916 4.19532 2.77787 4.41482 2.55837C4.63925 2.33394 4.87479 2.2395 5.15636 2.2395H13.1415L17.9272 7.02516V18.677C17.9272 18.9586 17.8328 19.1941 17.6083 19.4185C17.3888 19.638 17.1475 19.7374 16.8439 19.7374H5.15636C4.87835 19.7374 4.64522 19.6454 4.42334 19.427H5.15636H16.8439H17.5939V18.677V7.58534V6.83534H16.8439H13.2626V3.32284V2.57284H12.5126H5.15636H4.40636V3.32284V7.58534V18.677Z" fill="#1B1C1E" stroke="#1B1C1E" stroke-width="1.5"/>
+    </svg>
+    <span>Notes</span>
+  </div>
+
+  <form class="grid-container">
+    <div class="notes-search col-12">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19.9 20.9751L13.325 14.4001C12.825 14.8334 12.2417 15.1709 11.575 15.4126C10.9083 15.6543 10.2 15.7751 9.45 15.7751C7.65 15.7751 6.125 15.1501 4.875 13.9001C3.625 12.6501 3 11.1418 3 9.3751C3 7.60843 3.625 6.1001 4.875 4.8501C6.125 3.6001 7.64167 2.9751 9.425 2.9751C11.1917 2.9751 12.6958 3.6001 13.9375 4.8501C15.1792 6.1001 15.8 7.60843 15.8 9.3751C15.8 10.0918 15.6833 10.7834 15.45 11.4501C15.2167 12.1168 14.8667 12.7418 14.4 13.3251L21 19.8751L19.9 20.9751ZM9.425 14.2751C10.775 14.2751 11.925 13.7959 12.875 12.8376C13.825 11.8793 14.3 10.7251 14.3 9.3751C14.3 8.0251 13.825 6.87093 12.875 5.9126C11.925 4.95426 10.775 4.4751 9.425 4.4751C8.05833 4.4751 6.89583 4.95426 5.9375 5.9126C4.97917 6.87093 4.5 8.0251 4.5 9.3751C4.5 10.7251 4.97917 11.8793 5.9375 12.8376C6.89583 13.7959 8.05833 14.2751 9.425 14.2751Z" fill="#5B5C5E"/>
+      </svg>
+      <input class="inp" data-width="full" type="text" maxLength="100" placeholder="Search notes..." />
+    </div>
+  </form>
+
+  <div style="display: none;" class="notes-empty">
+    <div class="notes-empty_icon">
+      <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M11.6749 17.15H13.4749V11H11.6749V17.15ZM12.4999 9.35C12.7999 9.35 13.0457 9.25417 13.2374 9.0625C13.4291 8.87083 13.5249 8.63333 13.5249 8.35C13.5249 8.03333 13.4291 7.77917 13.2374 7.5875C13.0457 7.39583 12.7999 7.3 12.4999 7.3C12.1999 7.3 11.9541 7.39583 11.7624 7.5875C11.5707 7.77917 11.4749 8.03333 11.4749 8.35C11.4749 8.63333 11.5707 8.87083 11.7624 9.0625C11.9541 9.25417 12.1999 9.35 12.4999 9.35ZM12.4999 22.35C11.0332 22.35 9.67074 22.0875 8.4124 21.5625C7.15407 21.0375 6.05824 20.3083 5.1249 19.375C4.19157 18.4417 3.4624 17.3458 2.9374 16.0875C2.4124 14.8292 2.1499 13.4667 2.1499 12C2.1499 10.55 2.4124 9.19167 2.9374 7.925C3.4624 6.65833 4.19157 5.5625 5.1249 4.6375C6.05824 3.7125 7.15407 2.97917 8.4124 2.4375C9.67074 1.89583 11.0332 1.625 12.4999 1.625C13.9499 1.625 15.3082 1.89583 16.5749 2.4375C17.8416 2.97917 18.9374 3.7125 19.8624 4.6375C20.7874 5.5625 21.5207 6.65417 22.0624 7.9125C22.6041 9.17083 22.8749 10.5333 22.8749 12C22.8749 13.4667 22.6041 14.8292 22.0624 16.0875C21.5207 17.3458 20.7874 18.4417 19.8624 19.375C18.9374 20.3083 17.8416 21.0375 16.5749 21.5625C15.3082 22.0875 13.9499 22.35 12.4999 22.35ZM12.4999 20.375C14.7999 20.375 16.7707 19.5583 18.4124 17.925C20.0541 16.2917 20.8749 14.3167 20.8749 12C20.8749 9.7 20.0541 7.72917 18.4124 6.0875C16.7707 4.44583 14.7999 3.625 12.4999 3.625C10.1999 3.625 8.22907 4.44583 6.5874 6.0875C4.94574 7.72917 4.1249 9.7 4.1249 12C4.1249 14.3167 4.94574 16.2917 6.5874 17.925C8.22907 19.5583 10.1999 20.375 12.4999 20.375Z" fill="white"/>
+      </svg>
+    </div>
+    <span class="notes-empty_title">No notes yet</span>
+    <span class="notes-empty_info">Add a note to keep track of your learnings.</span>
+    <button class="btn" data-btn="secondary">
+      <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M13.25 14.425H12.75V14.925V17.65H12.25V14.925V14.425H11.75H9V13.925H11.75H12.25V13.425V10.675H12.75V13.425V13.925H13.25H16V14.425H13.25ZM14.775 7.65V3.5V3H14.275H6H5.5V3.5V8.15V20.5V21H6H19H19.5V20.5V8.15V7.65H19H14.775ZM19 21.5H6C5.74128 21.5 5.5161 21.409 5.30355 21.1964C5.09101 20.9839 5 20.7587 5 20.5V3.5C5 3.24128 5.09101 3.0161 5.30355 2.80355C5.5161 2.59101 5.74128 2.5 6 2.5H14.8179L20 7.68211V20.5C20 20.7587 19.909 20.9839 19.6964 21.1964C19.4839 21.409 19.2587 21.5 19 21.5Z" fill="black" stroke="#1B1C1E"/>
+      </svg>
+      <span>Add Note</span>
+    </button>
+  </div>
+
+  <div class="notes-add">
+    <div class="grid-container">
+      <div class="notes-search col-12">
+        <button class="btn" data-btn="primary" data-width="full">Add New</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <form class="notes-form">
+    <div class="notes-form_top">
+      <span class="notes-form_top-title">Add new note</span>
+      <button class="btn" data-btn="blank">Cancel</button>
+    </div>
+    <input class="inp" data-width="full" type="text" placeholder="Untitled Note" maxLength="100" name="note-title" />
+    <textarea class="inp" data-width="full" placeholder="Your Note..." maxLength="2000" name="note-content"></textarea>
+    <button class="btn" data-btn="primary">Add</button>
+  </form>
 </template>

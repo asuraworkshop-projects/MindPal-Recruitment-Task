@@ -26,6 +26,11 @@ input, button, textarea, select {
   font: inherit;
 }
 
+button {
+  border: 0;
+  background-color: transparent;
+}
+
 /* Reset general link styles */
 a {
   text-decoration: none;

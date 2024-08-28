@@ -51,6 +51,18 @@ li {
   padding: var(--gap);
 }
 
+.container-side {
+  display: block;
+  width: 100%;
+  max-width: var(--maxWidth);
+  margin: 0 auto;
+  padding: 0 var(--gap);
+}
+
+.main {
+  margin-top: calc(var(--gap) * 2);
+}
+
 /* custom scrollbar */
 *::-webkit-scrollbar, *::-webkit-scrollbar {
   width: 12px;

@@ -1,8 +1,9 @@
 :root {
 
   --cWhite: #fff;
-  --cGhost: #edeaea;
-  --cDark: #222;
+  --cGhost: #5B5C5E;
+  --cDark: #1B1C1E;
+  --cDarkSecondary: #3B3C3E;
   --cBlack: #000;
 
   --cPrimary: #6B3C9B;
@@ -16,7 +17,7 @@
 
   --maxWidth: 1400px;
 
-  --gap: 12px;
+  --gap: 16px;
   --fontSize: 16px;
 
 }
