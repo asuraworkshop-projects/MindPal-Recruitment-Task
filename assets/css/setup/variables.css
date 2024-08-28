@@ -1,0 +1,22 @@
+:root {
+
+  --cWhite: #fff;
+  --cGhost: #edeaea;
+  --cDark: #222;
+  --cBlack: #000;
+
+  --cPrimary: #6B3C9B;
+  --cPrimaryHover: #844DBA;
+  --cPrimaryActive: #5B2F87;
+  --cSecondary: #0F75B8;
+
+  --fontPrimary: "Inter", sans-serif;
+
+  --transition: 250ms ease-in-out;
+
+  --maxWidth: 1400px;
+
+  --gap: 12px;
+  --fontSize: 16px;
+
+}

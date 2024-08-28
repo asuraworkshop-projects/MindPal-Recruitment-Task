@@ -1,0 +1,15 @@
+.fixed-full {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  z-index: 1000;
+  min-height: 100vh;
+  min-width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: #0000004D;
+  padding: var(--gap);
+}

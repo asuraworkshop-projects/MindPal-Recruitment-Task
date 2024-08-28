@@ -1,0 +1,45 @@
+.main-header {
+  flex: 1;
+  display: flex;
+  width: 100%;
+  box-shadow: 0 0 4px 0 #0006, 0 0 8px 0 #0004, 0 0 12px 0 #0002;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  background-color: var(--cWhite);
+}
+
+.main-header > .container {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.header-logo {
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--cPrimary);
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.header-nav > a {
+  display: inline-flex;
+  position: relative;
+  font-weight: 400;
+  color: var(--cPrimary);
+  padding: 0 calc(var(--gap) / 2);
+  letter-spacing: 1px;
+  transition: color var(--transition);
+  font-size: 1.25rem;
+}
+
+.header-nav > a:hover {
+  color: var(--cPrimaryHover);
+}

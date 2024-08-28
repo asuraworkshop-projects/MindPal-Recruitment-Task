@@ -1,0 +1,32 @@
+/* border-box for everything */
+*, *::before, *::after {
+  box-sizing: border-box;
+  outline: 0;
+}
+
+/* No padding */
+ul[class], ol[class] {
+  padding: 0;
+}
+
+/* No margin */
+body, h1, h2, h3, h4, h5, h6, p, ul[class], ol[class], li, figure, figcaption, blockquote, dl, dd {
+  margin: 0;
+}
+
+/* Default body */
+html, body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  line-height: 1.25;
+}
+
+/* Forms inherit font */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* Reset general link styles */
+a {
+  text-decoration: none;
+}
