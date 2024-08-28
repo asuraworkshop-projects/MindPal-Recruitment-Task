@@ -45,19 +45,7 @@
 </div>
 
 <div id="notes_list" class="container-side">
-  <div class="grid-container">
-    <div class="col-12 col-md-6 col-xl-4 note">
-      <div class="note-top">
-        <span class="note-title">Note Title</span>
-        <div class="note-actions">
-          <custom-icon data-icon="note-edit"></custom-icon>
-          <custom-icon data-icon="delete"></custom-icon>
-        </div>
-      </div>
-      <span class="note-body">Note Body</span>
-      <span class="note-date">May 22</span>
-    </div>
-  </div>
+  <div id="notes_container" class="grid-container"></div>
 </div>
 
 <div class="fixed-full">
@@ -70,5 +58,19 @@
     </div>
   </div>
 </div>
+
+<template id="note_tpl">
+  <div class="col-12 col-md-6 col-xl-4 note">
+    <div class="note-top">
+      <span class="note-title"></span>
+      <div class="note-actions">
+        <custom-icon class="note-edit" data-icon="note-edit"></custom-icon>
+        <custom-icon class="note-delete" data-icon="delete"></custom-icon>
+      </div>
+    </div>
+    <span class="note-body"></span>
+    <span class="note-date"></span>
+  </div>
+</template>
 
 </template>

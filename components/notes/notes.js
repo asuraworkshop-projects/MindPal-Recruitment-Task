@@ -1,4 +1,5 @@
 import * as General from '../../scripts/general.js';
+import * as FormatDate from '../../scripts/format-date.js';
 
 // Global variables
 let noteList = [];
@@ -48,30 +49,37 @@ function noteFormSend() {
 
 function fetchData() {
   // TODO: fetching data from server
+  noteList = [];
+
   noteList = [{
+      'id': 1,
       'title': 'Notatka 1',
       'body': 'Przykładowa notatka 1',
       'date': 'May 22'
     },
     {
+      'id': 2,
       'title': 'Notatka 2',
       'body': 'Przykładowa notatka 2',
       'date': 'May 23'
     },
     {
+      'id': 3,
       'title': 'Notatka 3',
       'body': 'Przykładowa notatka 3',
       'date': 'May 24'
     },
     {
+      'id': 4,
       'title': 'Notatka 4',
       'body': 'Przykładowa notatka 4',
       'date': 'May 25'
     },
     {
+      'id': 5,
       'title': 'Notatka 5',
       'body': 'Przykładowa notatka 5',
-      'date': 'May 26'
+      'date': 'April 26'
     }
   ];
 
@@ -80,10 +88,38 @@ function fetchData() {
     General.showElementOfId('notes_add');
     General.hideElementOfId('notes_form');
     General.showElementOfId('notes_list');
+    renderNotes();
   } else {
     General.showElementOfId('notes_empty');
     General.hideElementOfId('notes_add');
     General.hideElementOfId('notes_form');
     General.hideElementOfId('notes_list');
   }
+}
+
+function renderNotes() {
+  const notesContainer = document.getElementById('notes_container');
+  const noteTemplate = document.getElementById('note_tpl').content;
+
+  notesContainer.innerHTML = ''; // Clear existing notes
+
+  noteList.forEach(note => {
+    const noteElement = document.importNode(noteTemplate, true);
+
+    noteElement.querySelector('.note-title').textContent = note.title;
+    noteElement.querySelector('.note-body').textContent = note.body;
+    noteElement.querySelector('.note-date').textContent = FormatDate.formatDate(note.date, 'long');
+
+    const deleteButton = noteElement.querySelector('.note-delete');
+    deleteButton.addEventListener('click', () => {
+      deleteNote(note.id);
+    });
+
+    const editButton = noteElement.querySelector('.note-edit');
+    editButton.addEventListener('click', () => {
+      editNote(note.id);
+    });
+
+    notesContainer.appendChild(noteElement);
+  });
 }
