@@ -1,3 +1,14 @@
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap);
+}
+
+.btn-group > .btn {
+  flex: 1;
+}
+
 .btn, .btn:link, .btn:visited {
   border: 0;
   cursor: pointer;

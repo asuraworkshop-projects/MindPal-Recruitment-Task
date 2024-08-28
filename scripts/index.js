@@ -1,1 +1,1 @@
-import * as Script from './routing.js';
+import * as Routing from './routing.js';
