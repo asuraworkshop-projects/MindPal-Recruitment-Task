@@ -181,7 +181,7 @@
 
 
 
-.confirmation-modal {
+.confirmation-dialog {
   display: flex;
   flex-direction: column;
   gap: 24px;

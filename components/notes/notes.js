@@ -1,5 +1,6 @@
 import * as General from '../../scripts/general.js';
 import * as FormatDate from '../../scripts/format-date.js';
+import * as ConfirmationDialog from '../confirmation-dialog/confirmation-dialog.js';
 
 // Global variables
 let noteList = [];
@@ -122,4 +123,18 @@ function renderNotes() {
 
     notesContainer.appendChild(noteElement);
   });
+}
+
+function deleteNote() {
+  const confirmationDialogData = {
+    'title': 'Delete Note',
+    'info': 'Are you sure you want to delete this note?',
+    'cancelText': 'Cancel',
+    'confirmText': 'Delete'
+  };
+  ConfirmationDialog.showConfirmationDialog(confirmationDialogData, executeDeleteNote);
+}
+
+function executeDeleteNote() {
+  alert(1);
 }
