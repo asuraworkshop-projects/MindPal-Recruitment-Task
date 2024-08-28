@@ -6,7 +6,7 @@
   margin-bottom: calc(var(--gap) * 2);
 }
 
-.notes-title > svg {
+.notes-title > custom-icon {
   width: 22px;
   height: 22px;
 }
@@ -18,7 +18,9 @@
   font-weight: 500;
 }
 
-.notes-search > svg {
+.notes-search > custom-icon {
+  width: 24px;
+  height: 24px;
   display: block;
   position: absolute;
   top: 50%;
@@ -52,7 +54,7 @@
   border-radius: 50%;
 }
 
-.notes-empty_icon > svg {
+.notes-empty_icon > custom-icon {
   width: 24px;
   height: 24px;
 }
@@ -155,7 +157,7 @@
   gap: 8px;
 }
 
-.note-actions svg {
+.note-actions custom-icon {
   cursor: pointer;
   width: 20px;
   height: 20px;

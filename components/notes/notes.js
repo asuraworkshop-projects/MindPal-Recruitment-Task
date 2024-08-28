@@ -42,6 +42,8 @@ function noteFormSend() {
   const noteBody = document.getElementById('notes_form_body');
 
   // TODO: add communication with server
+
+  cancelNotesForm();
 }
 
 function fetchData() {
