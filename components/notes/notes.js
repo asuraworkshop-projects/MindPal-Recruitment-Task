@@ -176,16 +176,5 @@ function fetchData() {
     }
   ];
 
-  if (noteList.length > 0) {
-    General.hideElementOfId('notes_empty');
-    General.showElementOfId('notes_add');
-    General.hideElementOfId('notes_form');
-    General.showElementOfId('notes_list');
-    RenderNotes.render();
-  } else {
-    General.showElementOfId('notes_empty');
-    General.hideElementOfId('notes_add');
-    General.hideElementOfId('notes_form');
-    General.hideElementOfId('notes_list');
-  }
+  RenderNotes.render();
 }

@@ -1,5 +1,6 @@
 import * as ConfirmationDialog from '../../confirmation-dialog/confirmation-dialog.js';
 import * as FormatDate from '../../../scripts/format-date.js';
+import * as General from '../../../scripts/general.js';
 
 import { noteList, searchTerm, executeDeleteNote, showNotesForm } from '../notes.js';
 
@@ -22,6 +23,19 @@ export function render() {
     const noteElement = createNoteElement(note);
     notesContainer.appendChild(noteElement);
   });
+
+  if (noteList.length > 0) {
+    General.hideElementOfId('notes_empty');
+    General.showElementOfId('notes_add');
+    General.hideElementOfId('notes_form');
+    General.showElementOfId('notes_list');
+  } else {
+    General.showElementOfId('notes_empty');
+    General.hideElementOfId('notes_add');
+    General.hideElementOfId('notes_form');
+    General.hideElementOfId('notes_list');
+  }
+
 }
 
 function createNoteElement(note) {
