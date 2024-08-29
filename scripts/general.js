@@ -21,3 +21,13 @@ export function showElementOfId(elementId) {
 export function hideElementOfId(elementId) {
   const elements = document.getElementById(elementId).style.display = 'none';
 }
+
+export function debounce(func, delay) {
+  let timeoutId;
+  return function(...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}

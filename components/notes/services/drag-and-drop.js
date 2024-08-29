@@ -1,4 +1,4 @@
-import { noteList } from '../notes.js';
+import { noteList, updateNoteList } from '../notes.js';
 
 let draggedElement = null;
 let placeholder = null;
@@ -66,5 +66,5 @@ function updateNotesOrder() {
   // TODO: add REST api communication
   const notesContainer = document.getElementById('notes_container');
   const updatedOrder = [...notesContainer.children].map(note => note.dataset.id);
-  noteList = updatedOrder.map(id => noteList.find(note => note.id == id));
+  updateNoteList(updatedOrder.map(id => noteList.find(note => note.id == id)));
 }

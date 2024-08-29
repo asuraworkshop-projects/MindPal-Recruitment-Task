@@ -1,10 +1,10 @@
 import * as ConfirmationDialog from '../../confirmation-dialog/confirmation-dialog.js';
 import * as FormatDate from '../../../scripts/format-date.js';
 
-import { noteList, executeDeleteNote, showNotesForm } from '../notes.js';
+import { noteList, searchTerm, executeDeleteNote, showNotesForm } from '../notes.js';
 
 // Function to render notes with search feature
-export function render(searchTerm) {
+export function render() {
   const notesContainer = document.getElementById('notes_container');
   notesContainer.innerHTML = '';
   let notes = [];

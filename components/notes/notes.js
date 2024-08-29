@@ -4,10 +4,11 @@ import * as General from '../../scripts/general.js';
 // Service imports
 import * as RenderNotes from './services/render-notes.js';
 import * as DragAndDrop from './services/drag-and-drop.js';
+import * as Search from './services/search.js';
 
 // Global variables
 export let noteList = [];
-let searchTerm = '';
+export let searchTerm = '';
 
 // Function to initialize component
 export function initialize() {
@@ -31,7 +32,15 @@ export function initialize() {
   // Initalize functions when component is loaded
   fetchData();
   DragAndDrop.initNoteDragging();
-  initNoteSearch();
+  Search.initNoteSearch();
+}
+
+export function updateNoteList(value) {
+  noteList = value;
+}
+
+export function updateSearchTerm(value) {
+  searchTerm = value;
 }
 
 export function showNotesForm(noteId = null) {
@@ -101,7 +110,7 @@ export function executeDeleteNote(noteId) {
   // TODO: add REST api communication
 
   noteList = noteList.filter(note => note.id !== noteId);
-  RenderNotes.render(searchTerm);
+  RenderNotes.render();
 }
 
 function executeEditNote(noteId, updatedProperties) {
@@ -112,7 +121,7 @@ function executeEditNote(noteId, updatedProperties) {
     noteList[index] = { ...noteList[index], ...updatedProperties };
   }
 
-  RenderNotes.render(searchTerm);
+  RenderNotes.render();
 }
 
 function executeAddNote(data) {
@@ -122,7 +131,7 @@ function executeAddNote(data) {
   const obj = { ...data, ...additionalData };
   noteList.push(obj);
 
-  RenderNotes.render(searchTerm);
+  RenderNotes.render();
 }
 
 function fetchData() {
@@ -172,34 +181,11 @@ function fetchData() {
     General.showElementOfId('notes_add');
     General.hideElementOfId('notes_form');
     General.showElementOfId('notes_list');
-    RenderNotes.render(searchTerm);
+    RenderNotes.render();
   } else {
     General.showElementOfId('notes_empty');
     General.hideElementOfId('notes_add');
     General.hideElementOfId('notes_form');
     General.hideElementOfId('notes_list');
   }
-}
-
-
-
-// Functions to search notes
-function initNoteSearch() {
-  const notesSearch = document.getElementById('notes_search');
-
-  notesSearch.addEventListener('input', debounce(function() {
-    searchTerm = notesSearch.value.toLowerCase();
-    RenderNotes.render(searchTerm);
-  }, 300));
-}
-
-// Debounce function to improve performance - can be moved to "General" scrips
-function debounce(func, delay) {
-  let timeoutId;
-  return function(...args) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-      func.apply(this, args);
-    }, delay);
-  };
 }
