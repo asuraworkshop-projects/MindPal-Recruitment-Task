@@ -1,4 +1,7 @@
-// Service imports
+// General imports
+import { ApiService } from '../../scripts/api-service.js';
+
+// Component imports
 import * as RenderNotes from './services/render-notes.js';
 import * as DragAndDrop from './services/drag-and-drop.js';
 import * as Search from './services/search.js';
@@ -7,6 +10,7 @@ import * as DisplayNotes from './services/display-notes.js';
 // Global variables
 export let noteList = [];
 export let searchTerm = '';
+const apiUrl = 'https://projects.asuraworkshop.com/MindPalApi/'
 
 // Function to initialize component
 export function initialize() {
@@ -31,6 +35,7 @@ export function initialize() {
   fetchData();
   DragAndDrop.initNoteDragging();
   Search.initNoteSearch();
+
 }
 
 export function updateNoteList(value) {
@@ -65,7 +70,6 @@ function noteFormSend() {
 
       executeAddNote(noteData);
     }
-    cancelNotesForm();
   }
 }
 
@@ -98,46 +102,16 @@ function executeAddNote(data) {
 }
 
 function fetchData() {
-  // Empty note list before fetching
-  noteList = [];
-
-  // TODO: add fetching data from server
-  noteList = [{
-      'id': 1,
-      'order': 1,
-      'title': 'Notatka 1',
-      'body': 'Przykładowa notatka 1',
-      'date': 'May 22'
-    },
-    {
-      'id': 2,
-      'order': 2,
-      'title': 'Notatka 2',
-      'body': 'Przykładowa notatka 2',
-      'date': 'May 23'
-    },
-    {
-      'id': 3,
-      'order': 3,
-      'title': 'Notatka 3',
-      'body': 'Przykładowa notatka 3',
-      'date': 'May 24'
-    },
-    {
-      'id': 4,
-      'order': 4,
-      'title': 'Notatka 4',
-      'body': 'Przykładowa notatka 4',
-      'date': 'May 25'
-    },
-    {
-      'id': 5,
-      'order': 5,
-      'title': 'Notatka 5',
-      'body': 'Przykładowa notatka 5',
-      'date': 'April 26'
-    }
-  ];
-
+  // rendering empty list to set html template
   RenderNotes.render();
+
+  // fetching data from server and re-render view
+  ApiService.fetchData(apiUrl)
+  .then(data => {
+    noteList = data;
+    RenderNotes.render();
+  })
+  .catch(error => {
+    console.error('Failed to fetch data:', error);
+  });
 }
