@@ -6,6 +6,7 @@ import * as ConfirmationDialog from '../confirmation-dialog/confirmation-dialog.
 let noteList = [];
 let draggedElement = null;
 let placeholder = null;
+let searchTerm = '';
 
 // Function to initialize component
 export function initialize() {
@@ -24,6 +25,7 @@ export function initialize() {
   // Initalize functions when component is loaded
   fetchData();
   initNoteDragging();
+  initNoteSearch();
 }
 
 function showNotesForm(noteId = null) {
@@ -61,32 +63,47 @@ function cancelNotesForm() {
   }
 }
 
+// Function to render notes with search feature
 function renderNotes() {
   const notesContainer = document.getElementById('notes_container');
-  const noteTemplate = document.getElementById('note_tpl').content;
-
   notesContainer.innerHTML = '';
+  let notes = [];
 
-  noteList.forEach(note => {
-    const noteElement = document.importNode(noteTemplate, true);
+  if (searchTerm.length > 0) {
+    notes = noteList.filter(note =>
+      note.title.toLowerCase().includes(searchTerm) ||
+      note.body.toLowerCase().includes(searchTerm)
+    );
+  } else {
+    notes = noteList;
+  }
 
-    noteElement.querySelector('.note-title').textContent = note.title;
-    noteElement.querySelector('.note-body').textContent = note.body;
-    noteElement.querySelector('.note-date').textContent = FormatDate.formatDate(note.date, 'long');
-    noteElement.querySelector('.note').setAttribute('data-id', note.id);
-
-    const deleteButton = noteElement.querySelector('.note-delete');
-    deleteButton.addEventListener('click', () => {
-      deleteNote(note.id);
-    });
-
-    const editButton = noteElement.querySelector('.note-edit');
-    editButton.addEventListener('click', () => {
-      showNotesForm(note.id);
-    });
-
+  notes.forEach(note => {
+    const noteElement = createNoteElement(note);
     notesContainer.appendChild(noteElement);
   });
+}
+
+function createNoteElement(note) {
+  const noteTemplate = document.getElementById('note_tpl').content;
+  const noteElement = document.importNode(noteTemplate, true);
+
+  noteElement.querySelector('.note-title').textContent = note.title;
+  noteElement.querySelector('.note-body').textContent = note.body;
+  noteElement.querySelector('.note-date').textContent = FormatDate.formatDate(note.date, 'long');
+  noteElement.querySelector('.note').setAttribute('data-id', note.id);
+
+  const deleteButton = noteElement.querySelector('.note-delete');
+  deleteButton.addEventListener('click', () => {
+    deleteNote(note.id);
+  });
+
+  const editButton = noteElement.querySelector('.note-edit');
+  editButton.addEventListener('click', () => {
+    showNotesForm(note.id);
+  });
+
+  return noteElement;
 }
 
 // Function to send note form (validation in html and on backend side)
@@ -261,4 +278,25 @@ function createPlaceholder() {
   el.classList.add('note-placeholder', 'col-12', 'col-md-6', 'col-xl-4');
   el.style.height = `${draggedElement.offsetHeight}px`;
   return el;
+}
+
+// Functions to search notes
+function initNoteSearch() {
+  const notesSearch = document.getElementById('notes_search');
+
+  notesSearch.addEventListener('input', debounce(function() {
+    searchTerm = notesSearch.value.toLowerCase();
+    renderNotes();
+  }, 300));
+}
+
+// Debounce function to improve performance - can be moved to "General" scrips
+function debounce(func, delay) {
+  let timeoutId;
+  return function(...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
 }
