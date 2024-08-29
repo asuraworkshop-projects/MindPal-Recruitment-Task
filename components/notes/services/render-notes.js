@@ -2,7 +2,8 @@ import * as ConfirmationDialog from '../../confirmation-dialog/confirmation-dial
 import * as FormatDate from '../../../scripts/format-date.js';
 import * as General from '../../../scripts/general.js';
 
-import { noteList, searchTerm, executeDeleteNote, showNotesForm } from '../notes.js';
+import * as DisplayNotes from './display-notes.js';
+import { noteList, searchTerm, executeDeleteNote } from '../notes.js';
 
 // Function to render notes with search feature
 export function render() {
@@ -54,7 +55,7 @@ function createNoteElement(note) {
 
   const editButton = noteElement.querySelector('.note-edit');
   editButton.addEventListener('click', () => {
-    showNotesForm(note.id);
+    DisplayNotes.showNotesForm(note.id);
   });
 
   return noteElement;

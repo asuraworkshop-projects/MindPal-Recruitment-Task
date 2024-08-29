@@ -1,10 +1,8 @@
-// General imports
-import * as General from '../../scripts/general.js';
-
 // Service imports
 import * as RenderNotes from './services/render-notes.js';
 import * as DragAndDrop from './services/drag-and-drop.js';
 import * as Search from './services/search.js';
+import * as DisplayNotes from './services/display-notes.js';
 
 // Global variables
 export let noteList = [];
@@ -15,11 +13,11 @@ export function initialize() {
   // Add event listeners to elements
   const addButtons = document.querySelectorAll(`.notes-button-add`);
   addButtons.forEach(element => {
-    element.addEventListener('click', () => showNotesForm(null));
+    element.addEventListener('click', () => DisplayNotes.showNotesForm(null));
   });
 
   const cancelButton = document.getElementById('notes_form_cancel');
-  cancelButton.addEventListener('click', cancelNotesForm);
+  cancelButton.addEventListener('click', () => DisplayNotes.cancelNotesForm());
 
   const formButton = document.getElementById('notes_form_send');
   formButton.addEventListener('click', noteFormSend);
@@ -41,41 +39,6 @@ export function updateNoteList(value) {
 
 export function updateSearchTerm(value) {
   searchTerm = value;
-}
-
-export function showNotesForm(noteId = null) {
-  const notesFormId = document.getElementById('notes_form_id');
-  const notesFormTitle = document.getElementById('notes_form_title');
-  const notesFormBody = document.getElementById('notes_form_body');
-  const notesFormMainTitle = document.getElementById('notes_form_main_title');
-  const notesFormSend = document.getElementById('notes_form_send');
-
-  if (noteId) {
-    const note = noteList.find(note => note.id === noteId);
-    notesFormId.value = note.id;
-    notesFormTitle.value = note.title;
-    notesFormBody.value = note.body;
-    notesFormMainTitle.innerHTML = 'Edit note';
-    notesFormSend.innerHTML = 'Edit';
-  } else {
-    notesFormId.value = '';
-    notesFormTitle.value ='';
-    notesFormBody.value = '';
-    notesFormMainTitle.innerHTML = 'Add new note';
-    notesFormSend.innerHTML = 'Add';
-  }
-  General.hideElementOfId('notes_empty');
-  General.hideElementOfId('notes_add');
-  General.showElementOfId('notes_form');
-}
-
-function cancelNotesForm() {
-  General.hideElementOfId('notes_form');
-  if (noteList.length > 0) {
-    General.showElementOfId('notes_add');
-  } else {
-    General.showElementOfId('notes_empty');
-  }
 }
 
 // Function to send note form (validation in html and on backend side)
@@ -135,10 +98,10 @@ function executeAddNote(data) {
 }
 
 function fetchData() {
-  // TODO: add fetching data from server
-
+  // Empty note list before fetching
   noteList = [];
 
+  // TODO: add fetching data from server
   noteList = [{
       'id': 1,
       'order': 1,
