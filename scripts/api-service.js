@@ -60,4 +60,24 @@ export class ApiService {
     }
   }
 
+  static async deleteById(endpoint, id) {
+    try {
+      const response = await fetch(`${endpoint}?id=${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        return result;
+      } else {
+        console.error('Error:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
+    }
+  }
+
 }
