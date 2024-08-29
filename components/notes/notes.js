@@ -10,7 +10,7 @@ import * as DisplayNotes from './services/display-notes.js';
 // Global variables
 export let noteList = [];
 export let searchTerm = '';
-const apiUrl = 'https://projects.asuraworkshop.com/MindPalApi/'
+const APIURL = 'https://projects.asuraworkshop.com/MindPalApi/'
 
 // Function to initialize component
 export function initialize() {
@@ -38,6 +38,7 @@ export function initialize() {
 
 }
 
+// Function to update global variables
 export function updateNoteList(value) {
   noteList = value;
 }
@@ -62,12 +63,6 @@ function noteFormSend() {
       executeEditNote(Number(notesFormId.value), noteData);
     } else {
 
-      // TODO: remove id setting after adding REST api
-      const highestId = noteList.reduce((max, note) => {
-        return note.id > max ? note.id : max;
-      }, 0);
-      noteData.id = highestId + 1;
-
       executeAddNote(noteData);
     }
   }
@@ -81,24 +76,34 @@ export function executeDeleteNote(noteId) {
 }
 
 function executeEditNote(noteId, updatedProperties) {
-  // TODO: add REST api communication
+  const putData = { ...updatedProperties, ...{ 'id': noteId } };
 
-  const index = noteList.findIndex(note => note.id === noteId);
-  if (index !== -1) {
-    noteList[index] = { ...noteList[index], ...updatedProperties };
-  }
-
-  RenderNotes.render();
+  ApiService.putData(APIURL, putData)
+  .then(() => {
+    const index = noteList.findIndex(note => note.id == noteId);
+    if (index !== -1) {
+      noteList[index] = { ...noteList[index], ...updatedProperties };
+    }
+    RenderNotes.render();
+  })
+  .catch(error => {
+    console.error('Failed to edit note:', error);
+  });
 }
 
 function executeAddNote(data) {
-  // TODO: add REST api communication
-
   const additionalData = { 'date': new Date() };
-  const obj = { ...data, ...additionalData };
-  noteList.push(obj);
+  const postData = { ...data, ...additionalData };
 
-  RenderNotes.render();
+  ApiService.postData(APIURL, postData)
+  .then(response => {
+    const addData = { ...postData, ...response };
+    noteList.push(addData);
+    RenderNotes.render();
+  })
+  .catch(error => {
+    console.error('Failed to add note:', error);
+  });
 }
 
 function fetchData() {
@@ -106,7 +111,7 @@ function fetchData() {
   RenderNotes.render();
 
   // fetching data from server and re-render view
-  ApiService.fetchData(apiUrl)
+  ApiService.fetchData(APIURL)
   .then(data => {
     noteList = data;
     RenderNotes.render();
