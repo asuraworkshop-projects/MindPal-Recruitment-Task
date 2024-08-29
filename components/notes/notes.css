@@ -11,13 +11,6 @@
   height: 22px;
 }
 
-.notes-title > span {
-  color: var(--cDark);
-  font-size: 20px;
-  line-height: 30px;
-  font-weight: 500;
-}
-
 .notes-search > custom-icon {
   width: 24px;
   height: 24px;
@@ -41,6 +34,7 @@
   text-align: center;
   margin: 60px auto 0 auto;
   width: 300px;
+  gap: 12px;
 }
 
 .notes-empty_icon {
@@ -52,6 +46,7 @@
   background-color: var(--cDark);
   border: 4px solid #EEEFF0;
   border-radius: 50%;
+  margin-bottom: 4px;
 }
 
 .notes-empty_icon > custom-icon {
@@ -59,21 +54,8 @@
   height: 24px;
 }
 
-.notes-empty_title {
-  margin-top: 16px;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 30px;
-  color: var(--cDark);
-}
-
-.notes-empty_info {
+.notes-empty > .notes-button-add {
   margin-top: 12px;
-  margin-bottom: 24px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 25.6px;
-  color: var(--cDarkSecondary);
 }
 
 /* add button */
@@ -104,20 +86,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.notes-form_top-title {
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 26px;
-  color: var(--cDark);
-}
-
-.notes-form_top-cancel {
-  font-size: 14px;
-  font-weight: 400px;
-  line-height: 24px;
-  color: var(--cSecondary);
 }
 
 .notes-form > .btn {
@@ -156,13 +124,6 @@
   align-items: center;
 }
 
-.note-title {
-  font-size: 14px;
-  line-height: 24px;
-  font-weight: 500;
-  color: var(--cDark);
-}
-
 .note-actions {
   display: flex;
   justify-content: space-between;
@@ -174,18 +135,4 @@
   cursor: pointer;
   width: 20px;
   height: 20px;
-}
-
-.note-body {
-  font-size: 14px;
-  line-height: 24px;
-  font-weight: 400;
-  color: var(--cDarkSecondary);
-}
-
-.note-date {
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 400;
-  color: var(--cGhost);
 }

@@ -88,9 +88,9 @@ function createNoteElement(note) {
   const noteTemplate = document.getElementById('note_tpl').content;
   const noteElement = document.importNode(noteTemplate, true);
 
-  noteElement.querySelector('.note-title').textContent = note.title;
-  noteElement.querySelector('.note-body').textContent = note.body;
-  noteElement.querySelector('.note-date').textContent = FormatDate.formatDate(note.date, 'long');
+  noteElement.querySelector('.text-smalltitle').textContent = note.title;
+  noteElement.querySelector('.text-body').textContent = note.body;
+  noteElement.querySelector('.text-small').textContent = FormatDate.formatDate(note.date, 'long');
   noteElement.querySelector('.note').setAttribute('data-id', note.id);
 
   const deleteButton = noteElement.querySelector('.note-delete');

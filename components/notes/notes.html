@@ -3,7 +3,7 @@
 <div class="container-side">
   <div class="notes-title">
     <custom-icon data-icon="note"></custom-icon>
-    <span>Notes</span>
+    <span class="text-title">Notes</span>
   </div>
 
   <form>
@@ -17,8 +17,8 @@
     <div class="notes-empty_icon">
       <custom-icon data-icon="info"></custom-icon>
     </div>
-    <span class="notes-empty_title">No notes yet</span>
-    <span class="notes-empty_info">Add a note to keep track of your learnings.</span>
+    <span class="text-title">No notes yet</span>
+    <span class="text-medium">Add a note to keep track of your learnings.</span>
     <button class="btn notes-button-add" data-btn="secondary">
       <custom-icon data-icon="note-add"></custom-icon>
       <span>Add Note</span>
@@ -36,7 +36,7 @@
 
 <div id="notes_form" class="notes-form">
   <div class="notes-form_top">
-    <span id="notes_form_main_title" class="notes-form_top-title">Add new note</span>
+    <span id="notes_form_main_title" class="text-subtitle">Add new note</span>
     <button id="notes_form_cancel" class="btn" data-btn="blank">Cancel</button>
   </div>
   <input id="notes_form_id" type="hidden" name="note-id" />
@@ -52,14 +52,14 @@
 <template id="note_tpl">
   <div class="col-12 col-md-6 col-xl-4 note" draggable="true">
     <div class="note-top">
-      <span class="note-title"></span>
+      <span class="text-smalltitle"></span>
       <div class="note-actions">
         <custom-icon class="note-edit" data-icon="note-edit"></custom-icon>
         <custom-icon class="note-delete" data-icon="delete"></custom-icon>
       </div>
     </div>
-    <span class="note-body"></span>
-    <span class="note-date"></span>
+    <span class="text-body"></span>
+    <span class="text-small"></span>
   </div>
 </template>
 

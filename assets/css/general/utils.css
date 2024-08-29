@@ -29,28 +29,40 @@
   font-size: 20px;
   font-weight: 500;
   line-height: 30px;
+  color: var(--cDark);
 }
 
 .text-subtitle {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 24px;
+  line-height: 26px;
+  color: var(--cDark);
 }
 
 .text-medium {
   font-size: 16px;
   font-weight: 400;
   line-height: 26px;
+  color: var(--cDarkSecondary);
+}
+
+.text-smalltitle {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  color: var(--cDark);
 }
 
 .text-body {
   font-size: 14px;
   font-weight: 400;
   line-height: 24px;
+  color: var(--cDarkSecondary);
 }
 
 .text-small {
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
+  color: var(--cGhost);
 }
