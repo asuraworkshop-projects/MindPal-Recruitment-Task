@@ -1,12 +1,8 @@
-// Define the routes and the corresponding component HTML files
-const routes = {
-  '/': 'components/home/home.html',
-  '/notes': 'components/notes/notes.html',
-};
+import { ROUTES } from '../routes.js';
 
 // Function to load the CSS and JS files dynamically after checking if they exist
 async function loadStylesAndScripts(route) {
-  const basePath = routes[route].replace('.html', '');
+  const basePath = ROUTES[route].replace('.html', '');
 
   // Check and load CSS
   const cssPath = `${basePath}.css`;
@@ -44,7 +40,7 @@ async function checkFileExists(filePath) {
 
 // Function to load the HTML content dynamically based on the route
 async function loadComponent(route) {
-  const componentPath = routes[route] || routes['/']; // Fallback to home if route not found
+  const componentPath = ROUTES[route] || ROUTES['/']; // Fallback to home if route not found
 
   try {
     const response = await fetch(componentPath);
