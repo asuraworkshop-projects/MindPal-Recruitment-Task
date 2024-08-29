@@ -45,7 +45,7 @@
   background-color: var(--cPrimaryHover);
 }
 
-.btn[data-btn*='primary']:active, .btn[data-btn*='primary']:focus {
+.btn[data-btn*='primary']:active {
   background-color: var(--cPrimaryActive);
 }
 
@@ -59,7 +59,7 @@
   background-color: #E7E7E7;
 }
 
-.btn[data-btn*='secondary']:active, .btn[data-btn*='secondary']:focus {
+.btn[data-btn*='secondary']:active {
   background-color: #BDBDBD;
   border: 1px solid #BDBDBD;
 }

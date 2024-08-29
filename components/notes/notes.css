@@ -11,6 +11,10 @@
   height: 22px;
 }
 
+.notes-search {
+  position: relative;
+}
+
 .notes-search > custom-icon {
   width: 24px;
   height: 24px;

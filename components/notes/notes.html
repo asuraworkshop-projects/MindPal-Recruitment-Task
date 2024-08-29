@@ -6,12 +6,10 @@
     <span class="text-title">Notes</span>
   </div>
 
-  <form>
-    <div class="notes-search">
-      <custom-icon data-icon="search"></custom-icon>
-      <input id="notes_search" class="inp" data-width="full" type="text" maxLength="100" placeholder="Search notes..." />
-    </div>
-  </form>
+  <div class="notes-search">
+    <custom-icon data-icon="search"></custom-icon>
+    <input id="notes_search" class="inp" data-width="full" type="text" maxLength="100" placeholder="Search notes..." />
+  </div>
 
   <div id="notes_empty" class="notes-empty">
     <div class="notes-empty_icon">
@@ -34,16 +32,16 @@
   </div>
 </div>
 
-<div id="notes_form" class="notes-form">
+<form id="notes_form" class="notes-form">
   <div class="notes-form_top">
     <span id="notes_form_main_title" class="text-subtitle">Add new note</span>
-    <button id="notes_form_cancel" class="btn" data-btn="blank">Cancel</button>
+    <button type="button" id="notes_form_cancel" class="btn" data-btn="blank">Cancel</button>
   </div>
   <input id="notes_form_id" type="hidden" name="note-id" />
-  <input id="notes_form_title" class="inp" data-width="full" type="text" placeholder="Untitled Note" maxLength="100" name="note-title" />
-  <textarea id="notes_form_body" class="inp" data-width="full" placeholder="Your Note..." maxLength="2000" name="note-content"></textarea>
-  <button id="notes_form_send" class="btn" data-btn="primary">Add</button>
-</div>
+  <input id="notes_form_title" class="inp" data-width="full" type="text" placeholder="Untitled Note" minLength="1" maxLength="100" required name="note-title" />
+  <textarea id="notes_form_body" class="inp" data-width="full" placeholder="Your Note..." minLength="4" maxLength="2000" required name="note-body"></textarea>
+  <button type="submit" id="notes_form_send" class="btn" data-btn="primary">Add</button>
+</form>
 
 <div id="notes_list" class="container-side">
   <div id="notes_container" class="grid-container"></div>

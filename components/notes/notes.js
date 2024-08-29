@@ -1,9 +1,11 @@
+// General imports
 import * as General from '../../scripts/general.js';
-import * as FormatDate from '../../scripts/format-date.js';
-import * as ConfirmationDialog from '../confirmation-dialog/confirmation-dialog.js';
+
+// Service imports
+import * as RenderNotes from './services/render-notes.js';
 
 // Global variables
-let noteList = [];
+export let noteList = [];
 let draggedElement = null;
 let placeholder = null;
 let searchTerm = '';
@@ -22,13 +24,18 @@ export function initialize() {
   const formButton = document.getElementById('notes_form_send');
   formButton.addEventListener('click', noteFormSend);
 
+  const notesForm = document.getElementById('notes_form');
+  notesForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+  });
+
   // Initalize functions when component is loaded
   fetchData();
   initNoteDragging();
   initNoteSearch();
 }
 
-function showNotesForm(noteId = null) {
+export function showNotesForm(noteId = null) {
   const notesFormId = document.getElementById('notes_form_id');
   const notesFormTitle = document.getElementById('notes_form_title');
   const notesFormBody = document.getElementById('notes_form_body');
@@ -63,49 +70,6 @@ function cancelNotesForm() {
   }
 }
 
-// Function to render notes with search feature
-function renderNotes() {
-  const notesContainer = document.getElementById('notes_container');
-  notesContainer.innerHTML = '';
-  let notes = [];
-
-  if (searchTerm.length > 0) {
-    notes = noteList.filter(note =>
-      note.title.toLowerCase().includes(searchTerm) ||
-      note.body.toLowerCase().includes(searchTerm)
-    );
-  } else {
-    notes = noteList;
-  }
-
-  notes.forEach(note => {
-    const noteElement = createNoteElement(note);
-    notesContainer.appendChild(noteElement);
-  });
-}
-
-function createNoteElement(note) {
-  const noteTemplate = document.getElementById('note_tpl').content;
-  const noteElement = document.importNode(noteTemplate, true);
-
-  noteElement.querySelector('.text-smalltitle').textContent = note.title;
-  noteElement.querySelector('.text-body').textContent = note.body;
-  noteElement.querySelector('.text-small').textContent = FormatDate.formatDate(note.date, 'long');
-  noteElement.querySelector('.note').setAttribute('data-id', note.id);
-
-  const deleteButton = noteElement.querySelector('.note-delete');
-  deleteButton.addEventListener('click', () => {
-    deleteNote(note.id);
-  });
-
-  const editButton = noteElement.querySelector('.note-edit');
-  editButton.addEventListener('click', () => {
-    showNotesForm(note.id);
-  });
-
-  return noteElement;
-}
-
 // Function to send note form (validation in html and on backend side)
 function noteFormSend() {
   // TODO: add REST api communication
@@ -117,38 +81,28 @@ function noteFormSend() {
     'title': notesFormTitle.value,
     'body': notesFormBody.value
   }
-  if (notesFormId.value) {
-    executeEditNote(Number(notesFormId.value), noteData);
-  } else {
+  if (noteData.title.length >= 1 && noteData.body.length >= 4) {
+    if (notesFormId.value) {
+      executeEditNote(Number(notesFormId.value), noteData);
+    } else {
 
-    // TODO: remove id setting after adding REST api
-    const highestId = noteList.reduce((max, note) => {
-      return note.id > max ? note.id : max;
-    }, 0);
-    noteData.id = highestId + 1;
+      // TODO: remove id setting after adding REST api
+      const highestId = noteList.reduce((max, note) => {
+        return note.id > max ? note.id : max;
+      }, 0);
+      noteData.id = highestId + 1;
 
-    executeAddNote(noteData);
+      executeAddNote(noteData);
+    }
+    cancelNotesForm();
   }
-
-  cancelNotesForm();
 }
 
-function deleteNote(noteId) {
-  const confirmationDialogData = {
-    'title': 'Delete Note',
-    'info': 'Are you sure you want to delete this note?',
-    'cancelText': 'Cancel',
-    'confirmText': 'Delete'
-  };
-  ConfirmationDialog.showConfirmationDialog(confirmationDialogData, () => executeDeleteNote(noteId));
-}
-
-function executeDeleteNote(noteId) {
+export function executeDeleteNote(noteId) {
   // TODO: add REST api communication
 
   noteList = noteList.filter(note => note.id !== noteId);
-
-  renderNotes();
+  RenderNotes.render(searchTerm);
 }
 
 function executeEditNote(noteId, updatedProperties) {
@@ -159,7 +113,7 @@ function executeEditNote(noteId, updatedProperties) {
     noteList[index] = { ...noteList[index], ...updatedProperties };
   }
 
-  renderNotes();
+  RenderNotes.render(searchTerm);
 }
 
 function executeAddNote(data) {
@@ -169,7 +123,7 @@ function executeAddNote(data) {
   const obj = { ...data, ...additionalData };
   noteList.push(obj);
 
-  renderNotes();
+  RenderNotes.render(searchTerm);
 }
 
 function fetchData() {
@@ -219,7 +173,7 @@ function fetchData() {
     General.showElementOfId('notes_add');
     General.hideElementOfId('notes_form');
     General.showElementOfId('notes_list');
-    renderNotes();
+    RenderNotes.render(searchTerm);
   } else {
     General.showElementOfId('notes_empty');
     General.hideElementOfId('notes_add');
@@ -300,7 +254,7 @@ function initNoteSearch() {
 
   notesSearch.addEventListener('input', debounce(function() {
     searchTerm = notesSearch.value.toLowerCase();
-    renderNotes();
+    RenderNotes.render(searchTerm);
   }, 300));
 }
 
