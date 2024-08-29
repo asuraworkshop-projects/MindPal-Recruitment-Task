@@ -13,3 +13,44 @@
   background-color: #0000004D;
   padding: var(--gap);
 }
+
+.confirmation-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 420px;
+  padding: 24px;
+  background-color: var(--cWhite);
+  border-radius: 12px;
+  box-shadow: 0px 6px 4px 0px #00000026;
+}
+
+.text-title {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+}
+
+.text-subtitle {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.text-medium {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+.text-body {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.text-small {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}

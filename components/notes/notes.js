@@ -4,6 +4,8 @@ import * as ConfirmationDialog from '../confirmation-dialog/confirmation-dialog.
 
 // Global variables
 let noteList = [];
+let draggedElement = null;
+let placeholder = null;
 
 // Function to initialize component
 export function initialize() {
@@ -21,6 +23,7 @@ export function initialize() {
 
   // Initalize functions when component is loaded
   fetchData();
+  initNoteDragging();
 }
 
 function showNotesForm(noteId = null) {
@@ -70,6 +73,7 @@ function renderNotes() {
     noteElement.querySelector('.note-title').textContent = note.title;
     noteElement.querySelector('.note-body').textContent = note.body;
     noteElement.querySelector('.note-date').textContent = FormatDate.formatDate(note.date, 'long');
+    noteElement.querySelector('.note').setAttribute('data-id', note.id);
 
     const deleteButton = noteElement.querySelector('.note-delete');
     deleteButton.addEventListener('click', () => {
@@ -200,4 +204,61 @@ function fetchData() {
     General.hideElementOfId('notes_form');
     General.hideElementOfId('notes_list');
   }
+}
+
+// Functions to drag & drop notes
+function initNoteDragging() {
+  const notesContainer = document.getElementById('notes_container');
+
+  notesContainer.addEventListener('dragstart', (e) => {
+    if (e.target.classList.contains('note') && placeholder === null && draggedElement === null) {
+      draggedElement = e.target;
+      e.target.classList.add('dragging');
+      placeholder = createPlaceholder();
+      draggedElement.parentNode.insertBefore(placeholder, draggedElement.nextSibling);
+    }
+  });
+
+  notesContainer.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    const target = e.target;
+    if (target && target !== draggedElement && target.classList.contains('note')) {
+      const bounding = target.getBoundingClientRect();
+      const offset = bounding.y + (bounding.height / 2);
+
+      if (e.clientY - offset > 0) {
+        target.parentNode.insertBefore(placeholder, target.nextSibling);
+      } else {
+        target.parentNode.insertBefore(placeholder, target);
+      }
+    }
+  });
+
+  notesContainer.addEventListener('drop', (e) => {
+    e.preventDefault();
+    if (placeholder) {
+      placeholder.parentNode.insertBefore(draggedElement, placeholder);
+      placeholder.remove();
+      placeholder = null;
+    }
+  });
+
+  notesContainer.addEventListener('dragend', (e) => {
+    if (draggedElement) {
+      draggedElement.classList.remove('dragging');
+      draggedElement = null;
+      if (placeholder) {
+        placeholder.remove();
+        placeholder = null;
+      }
+    }
+  });
+}
+
+// Helper function to create a placeholder
+function createPlaceholder() {
+  const el = document.createElement('div');
+  el.classList.add('note-placeholder', 'col-12', 'col-md-6', 'col-xl-4');
+  el.style.height = `${draggedElement.offsetHeight}px`;
+  return el;
 }
