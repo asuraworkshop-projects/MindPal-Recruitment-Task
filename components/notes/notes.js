@@ -179,30 +179,35 @@ function fetchData() {
 
   noteList = [{
       'id': 1,
+      'order': 1,
       'title': 'Notatka 1',
       'body': 'Przykładowa notatka 1',
       'date': 'May 22'
     },
     {
       'id': 2,
+      'order': 2,
       'title': 'Notatka 2',
       'body': 'Przykładowa notatka 2',
       'date': 'May 23'
     },
     {
       'id': 3,
+      'order': 3,
       'title': 'Notatka 3',
       'body': 'Przykładowa notatka 3',
       'date': 'May 24'
     },
     {
       'id': 4,
+      'order': 4,
       'title': 'Notatka 4',
       'body': 'Przykładowa notatka 4',
       'date': 'May 25'
     },
     {
       'id': 5,
+      'order': 5,
       'title': 'Notatka 5',
       'body': 'Przykładowa notatka 5',
       'date': 'April 26'
@@ -257,6 +262,7 @@ function initNoteDragging() {
       placeholder.parentNode.insertBefore(draggedElement, placeholder);
       placeholder.remove();
       placeholder = null;
+      updateNotesOrder();
     }
   });
 
@@ -278,6 +284,14 @@ function createPlaceholder() {
   el.classList.add('note-placeholder', 'col-12', 'col-md-6', 'col-xl-4');
   el.style.height = `${draggedElement.offsetHeight}px`;
   return el;
+}
+
+// Helper function to update notes order
+function updateNotesOrder() {
+  // TODO: add REST api communication
+  const notesContainer = document.getElementById('notes_container');
+  const updatedOrder = [...notesContainer.children].map(note => note.dataset.id);
+  noteList = updatedOrder.map(id => noteList.find(note => note.id == id));
 }
 
 // Functions to search notes
