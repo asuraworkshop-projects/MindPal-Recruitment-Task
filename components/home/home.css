@@ -1,0 +1,17 @@
+.btn {
+  margin-top: 12px;
+}
+
+pre {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  padding: 10px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+h2 {
+  margin-top: 36px;
+}
