@@ -21,12 +21,23 @@ export function initNoteDragging() {
     const target = e.target;
     if (target && target !== draggedElement && target.classList.contains('note')) {
       const bounding = target.getBoundingClientRect();
-      const offset = bounding.y + (bounding.height / 2);
+      let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
 
-      if (e.clientY - offset > 0) {
-        target.parentNode.insertBefore(placeholder, target.nextSibling);
-      } else {
-        target.parentNode.insertBefore(placeholder, target);
+      if (vw < 768) {
+        const offset = bounding.y + (bounding.height / 2);
+        if (e.clientY - offset > 0) {
+          target.parentNode.insertBefore(placeholder, target.nextSibling);
+        } else {
+          target.parentNode.insertBefore(placeholder, target);
+        }
+      }
+      else {
+        const offset = bounding.x + (bounding.width / 2);
+        if (e.clientX - offset > 0) {
+          target.parentNode.insertBefore(placeholder, target.nextSibling);
+        } else {
+          target.parentNode.insertBefore(placeholder, target);
+        }
       }
     }
   });
