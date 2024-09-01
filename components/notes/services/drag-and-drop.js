@@ -52,7 +52,7 @@ export function initNoteDragging() {
     }
   });
 
-  notesContainer.addEventListener('dragend', (e) => {
+  notesContainer.addEventListener('dragend', () => {
     if (draggedElement) {
       draggedElement.classList.remove('dragging');
       draggedElement = null;

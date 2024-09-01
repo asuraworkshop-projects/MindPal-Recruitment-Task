@@ -11,15 +11,15 @@ export function showIdFromClass(elementId, className) {
 }
 
 export function getAllElementsOfClass(className) {
-  return elements = document.querySelectorAll(`.${className}`);
+  return document.querySelectorAll(`.${className}`);
 }
 
 export function showElementOfId(elementId) {
-  const elements = document.getElementById(elementId).style.display = '';
+  document.getElementById(elementId).style.display = '';
 }
 
 export function hideElementOfId(elementId) {
-  const elements = document.getElementById(elementId).style.display = 'none';
+  document.getElementById(elementId).style.display = 'none';
 }
 
 export function debounce(func, delay) {
