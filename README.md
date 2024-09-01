@@ -74,6 +74,40 @@ Non-Routing Components:
     - Ensure the PR is squashed and merged to keep the commit history clean.
 
 
+# Confirmation Dialog Component
+The Confirmation Dialog component is designed to open a modal with customizable text and confirmation buttons. It accepts two parameters: `data` and an `onConfirm()` function, which is executed upon user confirmation.
+
+Usage Instructions:
+1. Import the Component:
+    - `import * as ConfirmationDialog from '../../confirmation-dialog/confirmation-dialog.js';`
+
+2. Define the `data` Object. The data object should contain the following properties:
+    - `title`: The title displayed in the modal.
+    - `info`: The message or question displayed in the modal.
+    - `cancelText`: The text displayed on the [cancel] button.
+    - `confirmText`: The text displayed on the [confirm] button.
+
+3. Define the Confirmation Function:
+    - Create a function that will be executed when the user clicks the [confirm] button.
+
+4. Trigger the Confirmation Dialog:
+    - Call the `showConfirmationDialog(data, () => onConfirmFunction(x, y))` function to display the modal and handle the confirmation action.
+
+Example:
+```
+import * as ConfirmationDialog from '../../confirmation-dialog/confirmation-dialog.js';
+
+const confirmationDialogData = {
+  'title': 'Your title',
+  'info': 'Text (question) that appear in modal',
+  'cancelText': 'Text that appear on [cancel] button',
+  'confirmText': 'Text that appear on [confirm] button'
+};
+
+ConfirmationDialog.showConfirmationDialog(confirmationDialogData, () => yourOnConfirmFunction());
+```
+
+
 # format-date examples
 ```
 formatDate(date, 'long') - Output: "April 22"
